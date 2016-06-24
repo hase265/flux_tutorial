@@ -86,7 +86,6 @@ MessagesStore.dispatchToken = Dispatcher.register(payload => {
   const actions = {
     updateOpenChatID(payload) {
       openChatID = payload.action.userID
-      messages[openChatID].lastAccess.currentUser = +new Date()
       MessagesStore.emitChange()
     },
   }
