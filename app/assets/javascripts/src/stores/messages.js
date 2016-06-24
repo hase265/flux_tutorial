@@ -70,12 +70,6 @@ const messages = {
 var openChatID = parseInt(Object.keys(messages)[0], 10)
 
 class ChatStore extends BaseStore {
-  addChangeListener(callback) {
-    this.on('change', callback)
-  }
-  removeChangeListener(callback) {
-    this.off('change', callback)
-  }
   getOpenChatUserID() {
     return openChatID
   }
@@ -94,7 +88,7 @@ MessagesStore.dispatchToken = Dispatcher.register(payload => {
       openChatID = payload.action.userID
       messages[openChatID].lastAccess.currentUser = +new Date()
       MessagesStore.emitChange()
-    }
+    },
   }
 
   actions[payload.action.type] && actions[payload.action.type](payload)
