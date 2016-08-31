@@ -1,5 +1,6 @@
 import Dispatcher from '../dispatcher'
 import BaseStore from '../base/store'
+import {ActionTypes} from '../constants/app'
 
 const messages = {
   2: {
@@ -83,14 +84,16 @@ class ChatStore extends BaseStore {
 const MessagesStore = new ChatStore()
 
 MessagesStore.dispatchToken = Dispatcher.register(payload => {
-  const actions = {
-    updateOpenChatID(payload) {
+  const action = payload.action
+
+  switch (action.type) {
+    case ActionTypes.UPDATE_OPEN_CHAT_ID:
       openChatID = payload.action.userID
       MessagesStore.emitChange()
-    },
+      break
   }
 
-  actions[payload.action.type] && actions[payload.action.type](payload)
+  return true
 })
 
 export default MessagesStore
